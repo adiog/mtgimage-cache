@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>MTG simpleGatherer</title>
+    <meta name="author" content="Aleksander Gajewski [adiog@brainfuck.pl]" />
+    <link rel="icon" type="image/png" href="static/img/icon.png"/>
+    <link rel="shortcut icon" type="image/x-icon" href="static/img/favicon.ico"/>
+    <link rel="stylesheet" href="static/gatherer.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="static/css/ui-lightness/jquery-ui-1.10.4.custom.min.css" />
+    <script type="text/javascript" src="static/externjs/jquery/jquery-1.10.2.js"></script>
+    <script type="text/javascript" src="static/externjs/jquery/jquery-ui-1.10.4.custom.min.js"></script>
+    <script>
+        var mtg_url = 'http://localhost:8000/';
+        var mtg_image_url = mtg_url + 'get/';
+        var mtg_static_url = mtg_url + 'static/';
+        var mtg_json_url = mtg_static_url + 'mtgjson/json/';
+        var mtg_json_suffix = '.json';
+        
+        var static_image = {
+            'color' : {
+            'White' : mtg_static_url + 'img/w.png',
+            'Blue' : mtg_static_url + 'img/u.png',
+            'Black' : mtg_static_url + 'img/b.png',
+            'Red' : mtg_static_url + 'img/r.png',
+            'Green' : mtg_static_url + 'img/g.png',
+            'Colorless' : mtg_static_url + 'img/1.png'
+            }
+        };
+
+        function getCardImageUrl(jsonCard, language)
+        {
+            if (language == "English") {
+                return mtg_image_url + jsonCard.multiverseid;
+            } else {
+                return mtg_image_url + jsonCard.multiverseid + '/' + getMultiverseIdByLanguage(jsonCard, language) + '/' + gathererDictionaries.language[language];
+            }
+        }
+    </script>
+    <script type="text/javascript" src="static/gatherer.js"></script>
+</head>
+<body onload="main();">
+</body>
+</html>

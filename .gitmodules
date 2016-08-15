@@ -1,0 +1,3 @@
+[submodule "static/mtgjson"]
+	path = static/mtgjson
+	url = https://github.com/lsmoura/mtgjson
