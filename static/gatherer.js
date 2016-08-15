@@ -5,6 +5,7 @@ var data = [];
 var output = [];
 
 var refineSearchPopup;
+var aboutPopup;
 var resultsContainer;
 
 
@@ -90,7 +91,8 @@ var config = {
     zoom : 240,
     sortable : [ 'set', 'number', 'cmc', 'color', 'type', 'name', 'artist', 'rarity' ],
     sortableSpecial : [ 'language', 'set', 'color', 'rarity', 'type' ],
-    refineSearchVisible : 1,
+    refineSearchVisible : 0,
+    aboutPopupVisible : 0,
     page : 1,
     pages : 1,
     pageSize : 20
@@ -330,6 +332,25 @@ function buildButtonFilter()
     return buttonFilter;
 }
 
+function buildAboutButton()
+{
+    var aboutButton = document.createElement('button');
+
+    aboutButton.innerHTML = 'About';
+    aboutButton.addEventListener('click', function () {
+        config.aboutPopupVisible = (config.aboutPopupVisible + 1) % 2;
+        if (config.aboutPopupVisible == 0) {
+            $(aboutPopup).dialog("close");
+        } else {
+            $(aboutPopup).dialog("open");
+        }
+    });
+    $(aboutButton).button();
+
+    return aboutButton;
+}
+
+
 function buildButtonPrevious()
 {
     var buttonPrevious = document.createElement('button');
@@ -369,6 +390,7 @@ function buildButtons()
 {
     var buttons = document.createElement('div');
 
+    buttons.appendChild(buildAboutButton());
     buttons.appendChild(buildButtonReset());
     buttons.appendChild(buildButtonFilter());
     buttons.appendChild(buildButtonPrevious());
@@ -509,6 +531,43 @@ function buildRefineSearchPopup()
     return refineSearchPopup;
 }
 
+function buildAboutPopup()
+{
+    var aboutPopup = document.createElement('div');
+    aboutPopup.title = 'About';
+
+    aboutPopup.innerHTML =
+        "- górny suwak odpowiada za rozmiar kart (lewy koniec), rozmiar zoomu" +
+        "(prawy koniec suwaka)," +
+        "- filtrowanie tekstu - wyszukuje w nazwie, tekście, typie, artyście itd." +
+        "(przykładowe zapytania '1/3 flying', 'Avon', 'azorius'), ponadto można" +
+        "dodatkowo w nowych liniach umieścić dodatkowe warunki związane z" +
+        "cmc/power/toughness (np: power > 3<ENTER>toughness < 3)," +
+        "- pierwsza linia z ramkami odpowiada za kolejność rezultatów (jest to" +
+        "lista drag and drop) - jeżeli chesz wyświetlić najpierw czarne potem" +
+        "białe - musisz przeciągnąć pole 'color' na początek i odpowiednio" +
+        "znaczki kolorów many (też są 'ruchome'), analogicznie można lecieć z" +
+        "typem/dodatkiem/rarity." +
+        "- domyślnie wyświetlone jest wszystko klikając na konkretny parametr" +
+        "ukrywasz/pokazujesz karty według określonego klucza - dla zbyt dużego" +
+        -"zoomu kliknięcie przywraca domyślny rozmiar karty";
+
+    $(aboutPopup)
+        .dialog({
+            close: function () {
+                config.aboutPopupVisible = 0;
+                storeConfig();
+            }
+        });    $(aboutPopup).dialog('option', 'width', '700px');
+    if (config.aboutPopupVisible == 0) {
+        $(aboutPopup).dialog("close");
+    } else {
+        $(aboutPopup).dialog("open");
+    }
+
+    return aboutPopup;
+}
+
 function buildAdditionalNavigationButtons()
 {
     var additional_navigation_buttons = document.createElement('div');
@@ -542,6 +601,7 @@ function initializeDocument()
 {
     resultsContainer = buildResultsContainer();
     refineSearchPopup = buildRefineSearchPopup();
+    aboutPopup = buildAboutPopup();
 
     document.body.appendChild(buildCardResizeSlider());
     document.body.appendChild(buildButtons());
