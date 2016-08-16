@@ -537,20 +537,22 @@ function buildAboutPopup()
     aboutPopup.title = 'About';
 
     aboutPopup.innerHTML =
-        "- górny suwak odpowiada za rozmiar kart (lewy koniec), rozmiar zoomu" +
-        "(prawy koniec suwaka)," +
-        "- filtrowanie tekstu - wyszukuje w nazwie, tekście, typie, artyście itd." +
-        "(przykładowe zapytania '1/3 flying', 'Avon', 'azorius'), ponadto można" +
-        "dodatkowo w nowych liniach umieścić dodatkowe warunki związane z" +
-        "cmc/power/toughness (np: power > 3<ENTER>toughness < 3)," +
-        "- pierwsza linia z ramkami odpowiada za kolejność rezultatów (jest to" +
-        "lista drag and drop) - jeżeli chesz wyświetlić najpierw czarne potem" +
-        "białe - musisz przeciągnąć pole 'color' na początek i odpowiednio" +
-        "znaczki kolorów many (też są 'ruchome'), analogicznie można lecieć z" +
-        "typem/dodatkiem/rarity." +
-        "- domyślnie wyświetlone jest wszystko klikając na konkretny parametr" +
-        "ukrywasz/pokazujesz karty według określonego klucza - dla zbyt dużego" +
-        -"zoomu kliknięcie przywraca domyślny rozmiar karty";
+        "<h3>Slider:</h3>" +
+        "<strong>resize</strong> the cards (left end: display size; right end: zoom on hover)" +
+        "<h3>Omnibox:</h3>" +
+        "<strong>filter</strong> results by name, text, type, artist etc. <br/>" +
+        "<i>e.g.: '1/3 flying', 'zombie', 'deathtouch', 'John Avon'</i><br/>" +
+        "<strong>add an extra criteria</strong> on cmc/power/toughness<br/>" +
+        "one per line and space separated, e.g.:<br/>" +
+        "<i>power > 3<br />toughness < 3</i>" +
+        "<h3>Filter box:</h3>" +
+        "<strong>precisie criteria</strong> by switching fields toggle-mode<br/>" +
+        "(i.e. click once to hide, click twice to show criteria)<br/>" +
+        "<strong>order them</strong> by drag-and-drop:<br/>" +
+        "use first line to order generic criteria<br/>" +
+        "(e.g. <i>cmc -> color -> type -> name -> ...</i>)<br/>" +
+        "then precise the order of criteria per group<br/>" +
+        "(e.g. <i>'mythic rare' -> 'rare' -> ...</i>)";
 
     $(aboutPopup)
         .dialog({
