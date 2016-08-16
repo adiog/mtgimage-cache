@@ -5,7 +5,7 @@ var data = [];
 var output = [];
 
 var refineSearchPopup;
-var aboutPopup;
+var howtoPopup;
 var resultsContainer;
 
 
@@ -92,7 +92,7 @@ var config = {
     sortable : [ 'set', 'number', 'cmc', 'color', 'type', 'name', 'artist', 'rarity' ],
     sortableSpecial : [ 'language', 'set', 'color', 'rarity', 'type' ],
     refineSearchVisible : 0,
-    aboutPopupVisible : 0,
+    howtoPopupVisible : 0,
     page : 1,
     pages : 1,
     pageSize : 20
@@ -332,22 +332,22 @@ function buildButtonFilter()
     return buttonFilter;
 }
 
-function buildAboutButton()
+function buildHowToButton()
 {
-    var aboutButton = document.createElement('button');
+    var howtoButton = document.createElement('button');
 
-    aboutButton.innerHTML = 'About';
-    aboutButton.addEventListener('click', function () {
-        config.aboutPopupVisible = (config.aboutPopupVisible + 1) % 2;
-        if (config.aboutPopupVisible == 0) {
-            $(aboutPopup).dialog("close");
+    howtoButton.innerHTML = 'HowTo';
+    howtoButton.addEventListener('click', function () {
+        config.howtoPopupVisible = (config.howtoPopupVisible + 1) % 2;
+        if (config.howtoPopupVisible == 0) {
+            $(howtoPopup).dialog("close");
         } else {
-            $(aboutPopup).dialog("open");
+            $(howtoPopup).dialog("open");
         }
     });
-    $(aboutButton).button();
+    $(howtoButton).button();
 
-    return aboutButton;
+    return howtoButton;
 }
 
 
@@ -390,7 +390,7 @@ function buildButtons()
 {
     var buttons = document.createElement('div');
 
-    buttons.appendChild(buildAboutButton());
+    buttons.appendChild(buildHowToButton());
     buttons.appendChild(buildButtonReset());
     buttons.appendChild(buildButtonFilter());
     buttons.appendChild(buildButtonPrevious());
@@ -531,12 +531,11 @@ function buildRefineSearchPopup()
     return refineSearchPopup;
 }
 
-function buildAboutPopup()
+function buildHowToPopup()
 {
-    var aboutPopup = document.createElement('div');
-    aboutPopup.title = 'About';
+    var howtoPopup = document.createElement('div');
 
-    aboutPopup.innerHTML =
+    howtoPopup.innerHTML =
         "<h3>Slider:</h3>" +
         "<strong>resize</strong> the cards (left end: display size; right end: zoom on hover)" +
         "<h3>Omnibox:</h3>" +
@@ -554,20 +553,20 @@ function buildAboutPopup()
         "then precise the order of criteria per group<br/>" +
         "(e.g. <i>'mythic rare' -> 'rare' -> ...</i>)";
 
-    $(aboutPopup)
+    $(howtoPopup)
         .dialog({
             close: function () {
-                config.aboutPopupVisible = 0;
+                config.howtoPopupVisible = 0;
                 storeConfig();
             }
-        });    $(aboutPopup).dialog('option', 'width', '700px');
-    if (config.aboutPopupVisible == 0) {
-        $(aboutPopup).dialog("close");
+        });    $(howtoPopup).dialog('option', 'width', '700px');
+    if (config.howtoPopupVisible == 0) {
+        $(howtoPopup).dialog("close");
     } else {
-        $(aboutPopup).dialog("open");
+        $(howtoPopup).dialog("open");
     }
 
-    return aboutPopup;
+    return howtoPopup;
 }
 
 function buildAdditionalNavigationButtons()
@@ -603,7 +602,7 @@ function initializeDocument()
 {
     resultsContainer = buildResultsContainer();
     refineSearchPopup = buildRefineSearchPopup();
-    aboutPopup = buildAboutPopup();
+    howtoPopup = buildHowToPopup();
 
     document.body.appendChild(buildCardResizeSlider());
     document.body.appendChild(buildButtons());
